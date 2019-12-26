@@ -1,7 +1,7 @@
 TARGET = dvorak
 LIBS = -lm -lX11
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS += -g -Wall
 
 .PHONY: default all clean
 

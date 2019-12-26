@@ -94,7 +94,11 @@ static int emit(int fd, int type, int code, int val) {
 //from: https://github.com/kentonv/dvorak-qwerty/tree/master/unix
 static int modifier_bit(int key) {
     switch (key) {
-        case 29:
+#ifdef CAPSLOCK
+        case 58:
+#else
+        case 20:
+#endif	  
             return 1;     // l-ctrl
         case 97:
             return 2;     // r-ctrl
@@ -102,6 +106,10 @@ static int modifier_bit(int key) {
             return 4;     // l-alt
         case 125:
             return 8;   // win
+#ifdef R_ALT
+        case 100:	  
+            return 16;
+#endif
     }
     return 0;
 }
@@ -362,7 +370,7 @@ int main(int argc, char *argv[]) {
             //map the keys
 
             //isDvorakLayout();
-
+	  
             mod_current = modifier_bit(ev.code);
             if (mod_current > 0) {
                 if (ev.value == 1) { //pressed
